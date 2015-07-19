@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
-Version: 1.0
+Version: 1.0.1
 */
 
-define('WPTAO_V', '1.0');
+define('WPTAO_V', '1.0.1');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -53,14 +53,13 @@ jQuery(function($) {
         }
         jQuery.ajax({
             type: "GET",
-            url: wptao_js.plugin_url + '/get_items.php?type=post',
+			url: wptao_js.plugin_url + '/get_items.php?type=post&link=' + encodeURIComponent(link),
             success: function(data) {
                 if (data) {
                     var url = wptao_js.api + '/get_items_detail.php?callback=?';
 					$.getJSON(url, {
 						u: encodeURIComponent(link),
 						from: encodeURIComponent(wptao_js.blog_url),
-						pid:wptao_js.pid,
 						sign: data,
 						c: 'p',
 						v:wptao_js.v,
@@ -271,7 +270,7 @@ function wptao_getcode() {
 		} 
 	} 
 } 
-function wptao_ensign() {
+function wptao_ensign($site, $url = '') {
 	$keys = wptao_getcode();
 	if ($keys['apikey'] && $keys['secret']) {
 		if (!empty($keys['bought'])) {
@@ -281,11 +280,24 @@ function wptao_ensign() {
 				$code = $keys['apikey'];
 			} else {
 				$code = $_SERVER['HTTP_HOST'];
-			}
+			} 
 		} else {
 			$code = $keys['apikey'];
-		}
-		return $code . '|' . key_authcode($code, 'ENCODE', $keys['secret'], 300);
+		} 
+		$wptao_options = get_option('wptao');
+		$op = 'pid=' . $wptao_options['pid'];
+/*
+		if (!$site && $url && strpos($url, 'item.jd.com')) { // 京东
+			$site = 'jd';
+		} 
+		if ($site == 'jd') { // 京东
+			$op = 'token=' . $wptao_options['access_token'] . '&unionId=' . $wptao_options['unionId'] . '&webId=' . $wptao_options['webId'];
+		} else {
+			$op = 'pid=' . $wptao_options['pid'];
+		} 
+*/
+		// return $op;
+		return $code . '|' . key_authcode($op, 'ENCODE', $keys['secret'], 300);
 	} 
 } 
 // WPMU
