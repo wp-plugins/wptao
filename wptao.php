@@ -53,7 +53,7 @@ jQuery(function($) {
         }
         jQuery.ajax({
             type: "GET",
-			url: wptao_js.plugin_url + '/get_items.php?type=post&link=' + encodeURIComponent(link),
+			url: wptao_js.plugin_url + '/get_items.php?type=sign&link=' + encodeURIComponent(link),
             success: function(data) {
                 if (data) {
                     var url = wptao_js.api + '/get_items_detail.php?callback=?';
