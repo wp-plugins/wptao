@@ -71,6 +71,6 @@ if (!current_user_can('edit_posts')) {
 </form>
 <script type="text/javascript">var wptao_js = <?php echo json_encode(wptao_js_var());?>;</script>
 <script type='text/javascript' src='js/jquery.min.js?ver=1.2.6'></script>
-<script type='text/javascript' src='js/jquery.page.js?ver=1.0'></script>
+<script type='text/javascript' src='js/jquery.page.js?ver=1.0.1'></script>
 </body>
 </html>
