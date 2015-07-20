@@ -12,14 +12,14 @@ if (!current_user_can('edit_posts')) {
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <link rel='stylesheet' id='wptao-style-css'  href='css/css.css?ver=1.0' type='text/css' media='all' />
 <body>
-<div id="wptao_tips"></div>
 <form action="" name="post" method="post" id="form-table">
+<div id="wptao_tips"></div>
 <table class="form-table">
   <tr>
     <th style="width:18%;"> <label for="tbk_link">商品链接*</label>
     </th>
     <td><input type="text" name="tbk[link]" id="tbk_link" value="" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="hidden" name="tbk[mall]" id="tbk_mall" value="" /><input type="hidden" name="tbk[status]" id="tbk_status" value="1" /><input type="hidden" name="tbk[sellerId]" id="tbk_sellerId" value="" /><input type="button" id="get_item_info" title="获取信息" value="获取信息" /> 支持淘宝网、天猫等网站商品信息自动获取</p></td>
+	<p class="description"><input type="hidden" name="tbk[mall]" id="tbk_mall" value="" /><input type="hidden" name="tbk[status]" id="tbk_status" value="1" /><input type="hidden" name="tbk[sellerId]" id="tbk_sellerId" value="" /><input type="button" id="get_item_info" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东等网站商品信息自动获取</p></td>
   </tr>
   <tr>
     <th style="width:18%;"> <label for="tbk_mm_link">商品推广链接</label>
@@ -71,6 +71,6 @@ if (!current_user_can('edit_posts')) {
 </form>
 <script type="text/javascript">var wptao_js = <?php echo json_encode(wptao_js_var());?>;</script>
 <script type='text/javascript' src='js/jquery.min.js?ver=1.2.6'></script>
-<script type='text/javascript' src='js/jquery.page.js?ver=1.0.1'></script>
+<script type='text/javascript' src='js/jquery.page.js?ver=<?php echo WPTAO_V;?>'></script>
 </body>
 </html>

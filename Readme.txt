@@ -3,14 +3,14 @@ Contributors: smyx
 Donate link: http://blogqun.com/wptao.html
 Tags: post,posts,admin,ajax,taobao,tmall,淘宝客,天猫,聚划算
 Requires at least: 3.0
-Tested up to: 1.0.1
+Tested up to: 1.1
 Stable tag: 4.2.2
 
 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
 
 == Description ==
 
-1. 可以一键获取商品信息，链接自动转换为商品推广链接（或者叫直达链接），包括店铺的推广链接。（目前支持淘宝网、天猫）
+1. 可以一键获取商品信息，链接自动转换为商品推广链接（或者叫直达链接），包括店铺的推广链接。（目前支持淘宝网、天猫、京东）
 2. 理论上兼容所有的淘宝客主题或者插件，也就是您不用换主题也能使用本插件。
 
 插件地址：http://blogqun.com/wptao.html
@@ -33,6 +33,12 @@ Stable tag: 4.2.2
 6. 淘点金推广单元ID
 
 == Changelog ==
+
+= 1.1 =
+ 
+2015/07/20
+ 
+支持自动获取京东商城商品信息及推广链接
 
 = 1.0 =
  

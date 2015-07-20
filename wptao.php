@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
-Version: 1.0.1
+Version: 1.1
 */
 
-define('WPTAO_V', '1.0.1');
+define('WPTAO_V', '1.1');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -159,8 +159,20 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
         </tr>
 		<?php } ?>
 		<tr>
-          <td width="200" valign="top"><label for="wptao_pid">淘点金推广单元ID</label></th>
+          <td width="200" valign="top"><label for="wptao_pid">阿里妈妈-淘点金推广单元ID</label></th>
 		  <td><input type="text" id="wptao_pid" name="wptao[pid]" size="30" value="<?php echo $wptao['pid'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#pid">如何获取？</a></td>
+		</tr>
+		<tr>
+          <td width="200" valign="top"><label for="wptao_unionId">京东-联盟ID</label></th>
+		  <td><input type="text" id="wptao_unionId" name="wptao[unionId]" size="30" value="<?php echo $wptao['unionId'];?>" /> <a target="_blank" href="http://ww2.sinaimg.cn/large/62579065gw1eu92xormivj20fl05674l.jpg">查看</a><br />位于【京东联盟】-【<a target="_blank" href="http://media.jd.com/master/account/center">结算中心</a>】</td>
+		</tr>
+		<tr>
+          <td width="200" valign="top"><label for="wptao_webId">京东-网站ID</label></th>
+		  <td><input type="text" id="wptao_webId" name="wptao[webId]" size="30" value="<?php echo $wptao['webId'];?>" /> <a target="_blank" href="http://ww1.sinaimg.cn/large/62579065gw1eu92xp7q1wj20ef08ndgv.jpg">查看</a><br />位于【京东联盟】-【<a target="_blank" href="http://media.jd.com/myadv/web">推广管理</a>】</td>
+		</tr>
+		<tr>
+          <td width="200" valign="top"><label for="wptao_jd_token">京东-Access token</label></th>
+		  <td><input type="text" id="wptao_jd_token" name="wptao[jd_token]" size="30" value="<?php echo $wptao['jd_token'];?>" /> <a target="_blank" href="http://open.blogqun.com/oauth/jd.php">去获取</a></td>
 		</tr>
 		<tr>
           <td width="200" valign="top"><label for="wptao_open">获取商品信息</label></td>
@@ -286,16 +298,14 @@ function wptao_ensign($site, $url = '') {
 		} 
 		$wptao_options = get_option('wptao');
 		$op = 'pid=' . $wptao_options['pid'];
-/*
 		if (!$site && $url && strpos($url, 'item.jd.com')) { // 京东
 			$site = 'jd';
 		} 
 		if ($site == 'jd') { // 京东
-			$op = 'token=' . $wptao_options['access_token'] . '&unionId=' . $wptao_options['unionId'] . '&webId=' . $wptao_options['webId'];
+			$op = 'token=' . $wptao_options['jd_token'] . '&unionId=' . $wptao_options['unionId'] . '&webId=' . $wptao_options['webId'];
 		} else {
 			$op = 'pid=' . $wptao_options['pid'];
 		} 
-*/
 		// return $op;
 		return $code . '|' . key_authcode($op, 'ENCODE', $keys['secret'], 300);
 	} 
