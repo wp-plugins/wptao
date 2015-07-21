@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
-Version: 1.1
+Version: 1.1.1
 */
 
-define('WPTAO_V', '1.1');
+define('WPTAO_V', '1.1.1');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -298,7 +298,7 @@ function wptao_ensign($site, $url = '') {
 		} 
 		$wptao_options = get_option('wptao');
 		$op = 'pid=' . $wptao_options['pid'];
-		if (!$site && $url && strpos($url, 'item.jd.com')) { // 京东
+		if (!$site && $url && strpos($url, '.jd.com')) { // 京东
 			$site = 'jd';
 		} 
 		if ($site == 'jd') { // 京东
