@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
-Version: 1.1.1
+Version: 1.2
 */
 
-define('WPTAO_V', '1.1.1');
+define('WPTAO_V', '1.2');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -99,7 +99,7 @@ jQuery(function($) {
     <th style="width:18%;"> <label for="wptao_link">商品链接*</label>
     </th>
     <td><input type="text" name="wptao_link" id="wptao_link" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫等网站商品信息自动获取</p>
+	<p class="description"><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p>
 	</td>
   </tr>
 </table>
@@ -173,6 +173,14 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
 		<tr>
           <td width="200" valign="top"><label for="wptao_jd_token">京东-Access token</label></th>
 		  <td><input type="text" id="wptao_jd_token" name="wptao[jd_token]" size="30" value="<?php echo $wptao['jd_token'];?>" /> <a target="_blank" href="http://open.blogqun.com/oauth/jd.php">去获取</a></td>
+		</tr>
+		<tr>
+          <td width="200" valign="top"><label for="wptao_dangdang_from">当当网-联盟ID</label></th>
+		  <td><input type="text" id="wptao_dangdang_from" name="wptao[dangdang_from]" size="30" value="<?php echo $wptao['dangdang_from'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#dangdang">如何获取？</a></td>
+		</tr>
+		<tr>
+          <td width="200" valign="top"><label for="wptao_suning_userId">苏宁易购-userId</label></th>
+		  <td><input type="text" id="wptao_suning_userId" name="wptao[suning_userId]" size="30" value="<?php echo $wptao['suning_userId'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#suning">如何获取？</a></td>
 		</tr>
 		<tr>
           <td width="200" valign="top"><label for="wptao_open">获取商品信息</label></td>
@@ -297,12 +305,21 @@ function wptao_ensign($site, $url = '') {
 			$code = $keys['apikey'];
 		} 
 		$wptao_options = get_option('wptao');
-		$op = 'pid=' . $wptao_options['pid'];
-		if (!$site && $url && strpos($url, '.jd.com')) { // 京东
-			$site = 'jd';
+		if (!$site && $url) {
+			if (strpos($url, '.jd.com')) {
+				$site = 'jd';
+			} elseif (strpos($url, '.dangdang.com')) {
+				$site = 'dangdang';
+			} elseif (strpos($url, '.suning.com')) {
+				$site = 'suning';
+			} 
 		} 
-		if ($site == 'jd') { // 京东
+		if ($site == 'jd') {
 			$op = 'token=' . $wptao_options['jd_token'] . '&unionId=' . $wptao_options['unionId'] . '&webId=' . $wptao_options['webId'];
+		} elseif ($site == 'dangdang') {
+			$op = 'from=' . $wptao_options['dangdang_from'];
+		} elseif ($site == 'suning') {
+			$op = 'userId=' . $wptao_options['suning_userId'];
 		} else {
 			$op = 'pid=' . $wptao_options['pid'];
 		} 
