@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: 淘宝客插件
+Plugin Name: WordPress淘宝客插件
 Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
