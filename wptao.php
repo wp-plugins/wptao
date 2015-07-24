@@ -138,7 +138,7 @@ function wptao_do_page() {
 function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
 </script>
 <div class="wrap">
-  <h2>淘宝客<code>v<?php echo WPTAO_V;?></code> <code><a target="_blank" href="http://blogqun.com/wptao.html">官网</a></code></h2>
+  <h2>淘宝客<code>v<?php echo WPTAO_V;?></code> <code><a target="_blank" href="http://blogqun.com/wptao.html">官网</a></code> <code><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5dd1c3ec6a1faf9dd3586b4d76e0bb32073baa09a55d9f76f433db393f6451a7">QQ群讨论:77434617</a></code></h2>
   <p>说明：本插件必须与您正在使用淘宝客相关的主题/插件配合使用，使用前请根据您的主题/插件填写输入框节点(id)，可以在发布页查看网页源代码获得。</p>
   <form method="post" action="">
 	<?php wp_nonce_field('wptao-options');?>
