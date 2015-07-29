@@ -67,6 +67,7 @@ jQuery(function($) {
 					}, function(data) {
                         if (data.title) {
                             $("#wptao_link").val(data.url);
+							$("#wptao_mall").val(data.mall);
 							if (data.tips){
 								$('#wptao_tips').html(data.tips);
 							}
@@ -99,9 +100,10 @@ jQuery(function($) {
     <th style="width:18%;"> <label for="wptao_link">商品链接*</label>
     </th>
     <td><input type="text" name="wptao_link" id="wptao_link" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p>
+	<p class="description"><input type="hidden" name="wptao_mall" id="wptao_mall" value="" /><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p>
 	</td>
   </tr>
+  <?php do_action('wptao_sidebox_tr', $items);?>
 </table>
 <?php
 } 
@@ -226,6 +228,7 @@ function wptao_js_var() {
 		'api' => (!$wptao['code']['authorize_code'] || substr($wptao['code']['authorize_code'], -4) == 'TEST') ? 'http://opent.blogqun.com/test/shop' : 'http://open.blogqun.com/shop',
 		'blog_url' => get_bloginfo('url'),
 		'plugin_url' => plugins_url('wptao'),
+		'login' => is_user_logged_in() ? true : false
 		);
 	return $var;
 }
