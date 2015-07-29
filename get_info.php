@@ -19,7 +19,7 @@ if (!current_user_can('edit_posts')) {
     <th style="width:18%;"> <label for="tbk_link">商品链接*</label>
     </th>
     <td><input type="text" name="tbk[link]" id="tbk_link" value="" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="hidden" name="tbk[mall]" id="tbk_mall" value="" /><input type="button" id="get_item_info" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p></td>
+	<p class="description"><input type="hidden" name="tbk[mall]" id="tbk_mall" /><input type="button" id="get_item_info" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p></td>
   </tr>
   <tr>
     <th style="width:18%;"> <label for="tbk_mm_link">商品推广链接</label>
@@ -69,7 +69,10 @@ if (!current_user_can('edit_posts')) {
   </tr>
 </table>
 </form>
-<script type="text/javascript">var wptao_js = <?php echo json_encode(wptao_js_var());?>;</script>
+<script type="text/javascript">
+var wptao_js = <?php echo json_encode(wptao_js_var());?>;
+(function(win,doc){ var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: wptao_js.pid,/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);
+</script>
 <script type='text/javascript' src='js/jquery.min.js?ver=1.2.6'></script>
 <script type='text/javascript' src='js/jquery.page.js?ver=<?php echo WPTAO_V;?>'></script>
 </body>

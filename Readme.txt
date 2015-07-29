@@ -3,7 +3,7 @@ Contributors: smyx
 Donate link: http://blogqun.com/wptao.html
 Tags: post,posts,admin,ajax,taobao,tmall,淘宝客,天猫,聚划算
 Requires at least: 3.0
-Tested up to: 1.2
+Tested up to: 1.2.1
 Stable tag: 4.2.2
 
 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
@@ -35,6 +35,12 @@ QQ群: 77434617
 6. 淘点金推广单元ID
 
 == Changelog ==
+
+= 1.2.1 =
+ 
+2015/07/29
+ 
+修改部分代码，方便定制。
 
 = 1.2 =
  

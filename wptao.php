@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
-Version: 1.2
+Version: 1.2.1
 */
 
-define('WPTAO_V', '1.2');
+define('WPTAO_V', '1.2.1');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -43,6 +43,7 @@ function wptao_sidebox_info() {
 ?>
 <script type="text/javascript">
 var wptao_js = <?php echo json_encode(wptao_js_var());?>;
+(function(win,doc){ var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: wptao_js.pid,/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);
 jQuery(function($) {
     // 商品信息
     $("#wptao_get_item").click(function() {
@@ -100,7 +101,7 @@ jQuery(function($) {
     <th style="width:18%;"> <label for="wptao_link">商品链接*</label>
     </th>
     <td><input type="text" name="wptao_link" id="wptao_link" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="hidden" name="wptao_mall" id="wptao_mall" value="" /><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p>
+	<p class="description"><input type="hidden" name="wptao_mall" id="wptao_mall" /><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p>
 	</td>
   </tr>
   <?php do_action('wptao_sidebox_tr', $items);?>
