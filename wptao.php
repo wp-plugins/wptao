@@ -217,7 +217,7 @@ foreach ($options as $key => $value) {
 	</p>
   </form>
 <p>PS:测试页面：<a target="_blank" href="<?php echo $plugin_url;?>/get_info.php"><?php echo $plugin_url;?>/get_info.php</a></p>
-<p>PS:如果您不确定您的淘宝客主题或者插件是否支持，或者您不懂配置节点，<a target="_blank" href="http://blogqun.com/wptao.html#inputid">先看教程</a>，还是不懂可以联系我（收费<code>10</code>RMB）。如果您的输入框没有节点id，可以联系我改造（收费<code>50</code>RMB）。<br />联系QQ：<code>3249892</code>，E-mail: <code>smyx@qq.com</code></p>
+<p>PS:如果您不确定您的淘宝客主题或者插件是否支持，或者您不懂配置节点，<a target="_blank" href="http://blogqun.com/wptao.html#inputid">先看教程</a>，还是不懂可以联系我（收费<code>10</code>RMB）。<br />如果您的输入框没有节点id，可以联系我改造（收费<code>50</code>RMB）。<br />如果您的主题有爆料功能，但是需要添加自动获取商品信息的按钮，可以联系我改造（收费<code>80</code>RMB）。<br />如果您的主题没有爆料功能，可以联系我定制（收费<code>150</code>RMB）<br />联系QQ：<code>3249892</code>，E-mail: <code>smyx@qq.com</code></p>
 </div>
 <?php
 } 
