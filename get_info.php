@@ -70,7 +70,7 @@ if (!current_user_can('edit_posts')) {
 </table>
 </form>
 <script type="text/javascript">
-var wptao_js = <?php echo json_encode(wptao_js_var());?>;
+var wptao_data,wptao_js = <?php echo json_encode(wptao_js_var());?>;
 (function(win,doc){ var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: wptao_js.pid,/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);
 </script>
 <script type='text/javascript' src='js/jquery.min.js?ver=1.2.6'></script>
