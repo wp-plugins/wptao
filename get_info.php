@@ -49,7 +49,7 @@ if (!current_user_can('edit_posts')) {
   <tr>
     <th style="width:10%;"> <label for="imageURL">商品图片</label>
     </th>
-    <td><input type="text" name="tbk[image]" id="imageURL" value="" size="30" tabindex="30" style="width: 90%;" /></td>
+    <td><input type="text" name="tbk[image]" id="imageURL" value="" size="30" tabindex="30" style="width: 90%;" /><div id="wptao_preview"></div></td>
   </tr>
   <tr>
     <th style="width:18%;"> <label for="tbk_price">商品价格</label>
