@@ -64,8 +64,8 @@ jQuery(function($) {
 						sign:data,
 						c:'p',
 						v:wptao_js.v,
-						<?php echo (!$items['item_click'] && !$items['shop_click']) ? 'cps:0' : '';?>
-						<?php echo (trim($items['desc'])) ? '' : 'desc:0';?>
+						<?php echo (!$items['item_click'] && !$items['shop_click']) ? 'cps:0,' : '';?>
+						<?php echo (trim($items['desc'])) ? '' : 'desc:0,';?>
 					}, function(data) {
                         if (data.title) {
                             $("#wptao_link").val(data.url);
