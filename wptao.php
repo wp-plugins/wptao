@@ -4,7 +4,7 @@ Plugin Name: WordPress淘宝客插件
 Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
-Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
+Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)（目前支持淘宝网、天猫、京东、苏宁、当当网、聚划算等）。
 Version: 1.2.2
 */
 
