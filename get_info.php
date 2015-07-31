@@ -12,6 +12,7 @@ if (!current_user_can('edit_posts')) {
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <link rel='stylesheet' id='wptao-style-css'  href='css/css.css?ver=1.0' type='text/css' media='all' />
 <body>
+<!-- By WordPress淘宝客插件 http://blogqun.com/wptao.html -->
 <form action="" name="post" method="post" id="form-table">
 <div id="wptao_tips"></div>
 <table class="form-table">

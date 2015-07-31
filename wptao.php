@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)（目前支持淘宝网、天猫、京东、苏宁、当当网、聚划算等）。
-Version: 1.2.3
+Version: 1.2.4
 */
 
-define('WPTAO_V', '1.2.3');
+define('WPTAO_V', '1.2.4');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -24,78 +24,37 @@ function wptao_plugin_actions($links) {
 
 add_action('admin_menu', 'wptao_sidebox_info_add');
 function wptao_sidebox_info_add() {
-	if (function_exists('add_meta_box')) {
-		add_meta_box('wp-sidebox-wptao-info', '获取商品信息', 'wptao_sidebox_info', 'post', 'normal', 'high');
-		add_meta_box('wp-sidebox-wptao-info', '获取商品信息', 'wptao_sidebox_info', 'page', 'normal', 'high');
-	} 
-	if (function_exists('get_post_types')) { // 自定义文章类型
-		if ($post_types = get_post_types(array('public' => true, '_builtin' => false), 'names', 'and')) {
-			foreach($post_types as $type => $object) {
-				add_meta_box('wp-sidebox-wptao-info', '获取商品信息', 'wptao_sidebox_info', $type, 'normal', 'high');
+	$wptao = get_option('wptao');
+	if ($wptao['open']) {
+		if (function_exists('add_meta_box')) {
+			add_meta_box('wp-sidebox-wptao-info', '获取商品信息', 'wptao_sidebox_info', 'post', 'normal', 'high');
+			add_meta_box('wp-sidebox-wptao-info', '获取商品信息', 'wptao_sidebox_info', 'page', 'normal', 'high');
+		} 
+		if (function_exists('get_post_types')) { // 自定义文章类型
+			if ($post_types = get_post_types(array('public' => true, '_builtin' => false), 'names', 'and')) {
+				foreach($post_types as $type => $object) {
+					add_meta_box('wp-sidebox-wptao-info', '获取商品信息', 'wptao_sidebox_info', $type, 'normal', 'high');
+				} 
 			} 
 		} 
-	} 
+	}
 }
 // 文章页面
 function wptao_sidebox_info() {
 	$wptao = get_option('wptao');
 	$items = $wptao['item'];
+	if (!$items) $items = array();
 ?>
+<!-- By WordPress淘宝客插件 http://blogqun.com/wptao.html -->
 <script type="text/javascript">
 var wptao_js = <?php echo json_encode(wptao_js_var());?>;
-(function(win,doc){ var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: wptao_js.pid,/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);
-jQuery(function($) {
-    // 商品信息
-    $("#wptao_get_item").click(function() {
-        var link = $("#wptao_link").val();
-        if (!link) {
-            alert('商品链接不能留空！');
-            return false;
-        }
-        jQuery.ajax({
-            type: "GET",
-			url: wptao_js.plugin_url + '/get_items.php?type=sign&link=' + encodeURIComponent(link),
-            success: function(data) {
-                if (data) {
-                    var url = wptao_js.api + '/get_items_detail.php?callback=?';
-					$.getJSON(url, {
-						u:encodeURIComponent(link),
-						from:encodeURIComponent(wptao_js.blog_url),
-						sign:data,
-						c:'p',
-						v:wptao_js.v,
-						<?php echo (!$items['item_click'] && !$items['shop_click']) ? 'cps:0,' : '';?>
-						<?php echo (trim($items['desc'])) ? '' : 'desc:0,';?>
-					}, function(data) {
-                        if (data.title) {
-                            $("#wptao_link").val(data.url);
-							$("#wptao_mall").val(data.mall);
-							if (data.tips){
-								$('#wptao_tips').html(data.tips);
-							}
-							<?php
-							foreach ($items as $i => $item) {
-								$item = trim($item);
-								if ($item) {
-									echo 'if (data.' . $i . ') {';
-									echo '$("#' . $item . '").val(data.' . $i . ');';
-									echo '}';
-								} 
-							} 
-							do_action('wptao_sidebox_js', $items);
-							?>
-                        } else if (data.error) {
-                            alert(data.error);
-                        }
-                    })
-                } else {
-					alert('请填写插件授权码！');
-					return false;
-				}
-            }
-        });
-    });
-});
+var wptao_data = <?php echo json_encode(array_filter($items));?>;
+var wptao_preview = wptao_data.preview;
+jQuery(function($){$("#wptao_get_item").click(function(){var link=$("#wptao_link").val();if(!link){alert('商品链接不能留空！');return false;}
+$.ajax({type:"GET",url:wptao_js.plugin_url+'/get_items.php?type=sign&link='+encodeURIComponent(link),success:function(data){if(data){var url=wptao_js.api+'/get_items_detail.php?callback=?';$.getJSON(url,{u:encodeURIComponent(link),from:encodeURIComponent(wptao_js.blog_url),sign:data,sign:data,c:'p',cps:!wptao_data.item_click&&!wptao_data.shop_click?0:1,desc:!wptao_data.desc?0:1,v:wptao_js.v},function(data){if(data.title){$("#wptao_link").val(data.url);$("#wptao_mall").val(data.mall);if(data.tips){$('#wptao_tips').html(data.tips);}
+for(var i in wptao_data){if(data[i]){$("#"+wptao_data[i]).val(data[i]);}}
+if(wptao_preview&&$('#'+wptao_preview).length>0){var img='';if(data.image){img='<img src="'+data.image+'" />';}
+$('#'+wptao_preview).html(img);}<?php do_action('wptao_sidebox_js', $items);?>}else if(data.error){alert(data.error);}})}else{alert('请填写插件授权码！');return false;}}});});});
 </script>
 <div id="wptao_tips"></div>
 <table class="form-table">
@@ -196,13 +155,14 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
 		  <td>输入框的节点id, 如果没有请留空: <br />比如：<code>&lt;input name="xxx" id="<span style="color:blue">abc</span>" /&gt;</code>，<code>abc</code>即为我们要的节点id</td>
 		</tr>
 <?php
-$options = array('link' => array('商品链接', ''),
+$options = array('url' => array('商品链接', ''),
 	'item_click' => array('商品推广链接（CPS）', ''),
 	'shop_name' => array('店铺名称', ''),
 	'shop_click' => array('店铺推广链接（CPS）', ''),
 	'title' => array('商品标题', '如果对应【文章标题】，可以填写<code><a href="javascript:;" onclick="add_value(\'wptao_title\',this)">titlewrap input</a></code>'),
 	'desc' => array('商品描述', '如果对应【文章内容】，可以填写<code><a href="javascript:;" onclick="add_value(\'wptao_desc\',this)">wp-content-editor-container textarea</a></code>'),
 	'image' => array('商品图片', ''),
+	'preview' => array('商品图片预览', ''),
 	'price' => array('商品价格', ''),
 	'old_price' => array('商品原价', ''),
 	);
