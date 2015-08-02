@@ -4,11 +4,11 @@ Plugin Name: WordPress淘宝客插件
 Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
-Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)（目前支持淘宝网、天猫、京东、苏宁、当当网、聚划算等）。
-Version: 1.2.4
+Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。（目前支持多麦CPS广告联盟(仅推广链接)、淘宝网、天猫、京东、国美、苏宁、当当网、亚马逊、聚划算等）
+Version: 1.3
 */
 
-define('WPTAO_V', '1.2.4');
+define('WPTAO_V', '1.3');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -51,10 +51,10 @@ var wptao_js = <?php echo json_encode(wptao_js_var());?>;
 var wptao_data = <?php echo json_encode(array_filter($items));?>;
 var wptao_preview = wptao_data.preview;
 jQuery(function($){$("#wptao_get_item").click(function(){var link=$("#wptao_link").val();if(!link){alert('商品链接不能留空！');return false;}
-$.ajax({type:"GET",url:wptao_js.plugin_url+'/get_items.php?type=sign&link='+encodeURIComponent(link),success:function(data){if(data){var url=wptao_js.api+'/get_items_detail.php?callback=?';$.getJSON(url,{u:encodeURIComponent(link),from:encodeURIComponent(wptao_js.blog_url),sign:data,sign:data,c:'p',cps:!wptao_data.item_click&&!wptao_data.shop_click?0:1,desc:!wptao_data.desc?0:1,v:wptao_js.v},function(data){if(data.title){$("#wptao_link").val(data.url);$("#wptao_mall").val(data.mall);if(data.tips){$('#wptao_tips').html(data.tips);}
+jQuery.ajax({type:"GET",url:wptao_js.plugin_url+'/get_items.php?type=sign&link='+encodeURIComponent(link),success:function(data){if(data){var url=wptao_js.api+'/get_items_detail.php?callback=?';$.getJSON(url,{u:encodeURIComponent(link),from:encodeURIComponent(wptao_js.blog_url),sign:data,sign:data,c:'p',cps:!wptao_data.item_click&&!wptao_data.shop_click?0:1,desc:!wptao_data.desc?0:1,v:wptao_js.v},function(data){if(data.error){alert(data.error);}else if(data.url){$("#wptao_link").val(data.url);$("#wptao_mall").val(data.mall);if(data.tips){$('#wptao_tips').html(data.tips);}
 for(var i in wptao_data){if(data[i]){$("#"+wptao_data[i]).val(data[i]);}}
 if(wptao_preview&&$('#'+wptao_preview).length>0){var img='';if(data.image){img='<img src="'+data.image+'" />';}
-$('#'+wptao_preview).html(img);}<?php do_action('wptao_sidebox_js', $items);?>}else if(data.error){alert(data.error);}})}else{alert('请填写插件授权码！');return false;}}});});});
+$('#'+wptao_preview).html(img);}<?php do_action('wptao_sidebox_js', $items);?>}})}else{alert('请填写插件授权码！');return false;}}});});});
 </script>
 <div id="wptao_tips"></div>
 <table class="form-table">
@@ -123,35 +123,47 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
         </tr>
 		<?php } ?>
 		<tr>
-          <td width="200" valign="top"><label for="wptao_pid">阿里妈妈-淘点金推广单元ID</label></th>
-		  <td><input type="text" id="wptao_pid" name="wptao[pid]" size="30" value="<?php echo $wptao['pid'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#pid">如何获取？</a></td>
-		</tr>
-		<tr>
-          <td width="200" valign="top"><label for="wptao_unionId">京东-联盟ID</label></th>
-		  <td><input type="text" id="wptao_unionId" name="wptao[unionId]" size="30" value="<?php echo $wptao['unionId'];?>" /> <a target="_blank" href="http://ww2.sinaimg.cn/large/62579065gw1eu92xormivj20fl05674l.jpg">查看</a><br />位于【京东联盟】-【<a target="_blank" href="http://media.jd.com/master/account/center">结算中心</a>】</td>
-		</tr>
-		<tr>
-          <td width="200" valign="top"><label for="wptao_webId">京东-网站ID</label></th>
-		  <td><input type="text" id="wptao_webId" name="wptao[webId]" size="30" value="<?php echo $wptao['webId'];?>" /> <a target="_blank" href="http://ww1.sinaimg.cn/large/62579065gw1eu92xp7q1wj20ef08ndgv.jpg">查看</a><br />位于【京东联盟】-【<a target="_blank" href="http://media.jd.com/myadv/web">推广管理</a>】</td>
-		</tr>
-		<tr>
-          <td width="200" valign="top"><label for="wptao_jd_token">京东-Access token</label></th>
-		  <td><input type="text" id="wptao_jd_token" name="wptao[jd_token]" size="30" value="<?php echo $wptao['jd_token'];?>" /> <a target="_blank" href="http://open.blogqun.com/oauth/jd.php">去获取</a></td>
-		</tr>
-		<tr>
-          <td width="200" valign="top"><label for="wptao_dangdang_from">当当网-联盟ID</label></th>
-		  <td><input type="text" id="wptao_dangdang_from" name="wptao[dangdang_from]" size="30" value="<?php echo $wptao['dangdang_from'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#dangdang">如何获取？</a></td>
-		</tr>
-		<tr>
-          <td width="200" valign="top"><label for="wptao_suning_userId">苏宁易购-userId</label></th>
-		  <td><input type="text" id="wptao_suning_userId" name="wptao[suning_userId]" size="30" value="<?php echo $wptao['suning_userId'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#suning">如何获取？</a></td>
-		</tr>
-		<tr>
           <td width="200" valign="top"><label for="wptao_open">获取商品信息</label></td>
 		  <td><label><input type="checkbox" id="wptao_open" name="wptao[open]" value="1" <?php if($wptao['open']) echo "checked "; ?>>添加到撰写新文章/编辑文章 页面</label></td>
 		</tr>
 		<tr>
-          <th scope="row">商品信息:</th>
+          <td valign="top"><label for="wptao_pid">阿里妈妈-淘点金推广单元ID</label></td>
+		  <td><input type="text" id="wptao_pid" name="wptao[pid]" size="30" value="<?php echo $wptao['pid'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#pid">如何获取？</a></td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_dm_siteid">多麦CPS广告联盟-<a target="_blank" href="http://www.duomai.com/index.php?m=siter_sit&a=index">网站ID</a></label></td>
+		  <td><input type="text" id="wptao_dm_siteid" name="wptao[dm_siteid]" size="30" value="<?php echo $wptao['dm_siteid'];?>" /> <a target="_blank" href="http://ww4.sinaimg.cn/large/62579065gw1eun9yn5moxj20dn07o0ty.jpg">查看</a></td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_z_tag"><a target="_blank" href="https://associates.amazon.cn/">亚马逊</a>-跟踪代码（联盟ID）</label></td>
+		  <td><input type="text" id="wptao_z_tag" name="wptao[z_tag]" size="30" value="<?php echo $wptao['z_tag'];?>" /> <a target="_blank" href="http://ww1.sinaimg.cn/large/62579065gw1eund96vttij205c04omxa.jpg">查看</a></td>
+		</tr>
+		<tr>
+          <td valign="top"><strong>其它联盟（可选）</td>
+		  <td>以下商城也可以使用<a target="_blank" href="http://www.duomai.com/">多麦CPS广告联盟</a>，会优先获取下述官方联盟的推广链接，如果没有找到才获取【多麦CPS广告联盟】的推广链接。不管设置与否，都可以获取商品信息。</td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_unionId">京东-联盟ID</label></td>
+		  <td><input type="text" id="wptao_unionId" name="wptao[unionId]" size="30" value="<?php echo $wptao['unionId'];?>" /> <a target="_blank" href="http://ww2.sinaimg.cn/large/62579065gw1eu92xormivj20fl05674l.jpg">查看</a><br />位于【京东联盟】-【<a target="_blank" href="http://media.jd.com/master/account/center">结算中心</a>】</td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_webId">京东-网站ID</label></td>
+		  <td><input type="text" id="wptao_webId" name="wptao[webId]" size="30" value="<?php echo $wptao['webId'];?>" /> <a target="_blank" href="http://ww1.sinaimg.cn/large/62579065gw1eu92xp7q1wj20ef08ndgv.jpg">查看</a><br />位于【京东联盟】-【<a target="_blank" href="http://media.jd.com/myadv/web">推广管理</a>】</td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_jd_token">京东-Access token</label></td>
+		  <td><input type="text" id="wptao_jd_token" name="wptao[jd_token]" size="30" value="<?php echo $wptao['jd_token'];?>" /> <a target="_blank" href="http://open.blogqun.com/oauth/jd.php">去获取</a></td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_dangdang_from">当当网-联盟ID</label></td>
+		  <td><input type="text" id="wptao_dangdang_from" name="wptao[dangdang_from]" size="30" value="<?php echo $wptao['dangdang_from'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#dangdang">如何获取？</a></td>
+		</tr>
+		<tr>
+          <td valign="top"><label for="wptao_suning_userId">苏宁易购-userId</label></td>
+		  <td><input type="text" id="wptao_suning_userId" name="wptao[suning_userId]" size="30" value="<?php echo $wptao['suning_userId'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#suning">如何获取？</a></td>
+		</tr>
+		<tr>
+          <td valign="top"><strong>商品信息（必须）</strong></td>
 		  <td>输入框的节点id, 如果没有请留空: <br />比如：<code>&lt;input name="xxx" id="<span style="color:blue">abc</span>" /&gt;</code>，<code>abc</code>即为我们要的节点id</td>
 		</tr>
 <?php
@@ -168,7 +180,7 @@ $options = array('url' => array('商品链接', ''),
 	);
 
 foreach ($options as $key => $value) {
-	echo '<tr><td width="200" valign="top"><label for="wptao_' . $key . '">' . $value[0] . '</label></td><td><label>#<input id="wptao_' . $key . '" name="wptao[item][' . $key . ']" type="text" value="' . $wptao['item'][$key] . '" /></label>';
+	echo '<tr><td valign="top"><label for="wptao_' . $key . '">' . $value[0] . '</label></td><td><label>#<input id="wptao_' . $key . '" name="wptao[item][' . $key . ']" type="text" value="' . $wptao['item'][$key] . '" /></label>';
 	echo $value[1] ? '<p class="description">' . $value[1] . '</p>' : '';
 	echo '</td></tr>';
 } 
@@ -179,7 +191,7 @@ foreach ($options as $key => $value) {
 	</p>
   </form>
 <p>PS:测试页面：<a target="_blank" href="<?php echo $plugin_url;?>/get_info.php"><?php echo $plugin_url;?>/get_info.php</a></p>
-<p>PS:如果您不确定您的淘宝客主题或者插件是否支持，或者您不懂配置节点，<a target="_blank" href="http://blogqun.com/wptao.html#inputid">先看教程</a>，还是不懂可以联系我（收费<code>10</code>RMB）。<br />如果您的输入框没有节点id，可以联系我改造（收费<code>50</code>RMB）。<br />如果您的主题有爆料功能，但是需要添加自动获取商品信息的按钮，可以联系我改造（收费<code>80</code>RMB）。<br />如果您的主题没有爆料功能，可以联系我定制（收费<code>150</code>RMB）<br />联系QQ：<code>3249892</code>，E-mail: <code>smyx@qq.com</code></p>
+<p>PS:如果您不确定您的淘宝客主题或者插件是否支持，或者您不懂配置节点，<a target="_blank" href="http://blogqun.com/wptao.html#inputid">先看教程</a>，还是不懂可以联系我（收费<code>10</code>RMB）。<br />如果您的输入框没有节点id，可以联系我改造（收费<code>50</code>RMB）。<br />如果您的主题有爆料功能，但是需要添加自动获取商品信息的按钮，可以联系我改造（收费<code>80</code>RMB）。<br />如果您的主题没有爆料功能，可以联系我定制（收费<code>150</code>RMB）<br />如果您想抓取某个商城的商品信息，可以联系我定制（收费<code>100</code>RMB）<br />联系QQ：<code><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3249892&amp;site=qq&amp;menu=yes" title="我要咨询">3249892</a></code>，E-mail: <code>smyx@qq.com</code></p>
 </div>
 <?php
 } 
@@ -278,6 +290,8 @@ function wptao_ensign($site, $url = '') {
 				$site = 'dangdang';
 			} elseif (strpos($url, '.suning.com')) {
 				$site = 'suning';
+			} elseif (strpos($url, '.amazon.cn')) {
+				$site = 'amazon';
 			} 
 		} 
 		if ($site == 'jd') {
@@ -286,8 +300,14 @@ function wptao_ensign($site, $url = '') {
 			$op = 'from=' . $wptao_options['dangdang_from'];
 		} elseif ($site == 'suning') {
 			$op = 'userId=' . $wptao_options['suning_userId'];
+		} elseif ($site == 'amazon') {
+			$op = 'z_tag=' . $wptao_options['z_tag'];
 		} else {
 			$op = 'pid=' . $wptao_options['pid'];
+		} 
+		if ($wptao_options['dm_siteid']) {
+			$op .= $op ? '&' : '';
+			$op .= 'dm_siteid=' . $wptao_options['dm_siteid'];
 		} 
 		// return $op;
 		return $code . '|' . key_authcode($op, 'ENCODE', $keys['secret'], 300);

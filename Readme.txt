@@ -1,20 +1,22 @@
 === Plugin Name ===
 Contributors: smyx
 Donate link: http://blogqun.com/wptao.html
-Tags: post,posts,admin,ajax,taobao,tmall,淘宝客,天猫,聚划算
+Tags: post,posts,admin,ajax,taobao,tmall,duomai,CPS,taobaoke,alimama,淘宝客,天猫,聚划算,多麦,多麦CPS广告联盟,京东商城,京东,国美,苏宁,亚马逊,当当网,广告联盟,联盟
 Requires at least: 3.0
-Tested up to: 1.2.4
+Tested up to: 1.3
 Stable tag: 4.2.2
 
 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
+也支持多麦CPS广告联盟。
 
 QQ群: 77434617
 
 == Description ==
 
-1. 可以一键获取商品信息，链接自动转换为商品推广链接（或者叫直达链接），包括店铺的推广链接。（目前支持淘宝网、天猫、京东、苏宁、当当网、聚划算等）
-2. 理论上兼容所有的淘宝客主题或者插件，也就是您不用换主题也能使用本插件。
-3. 如果商品没有加入推广计划会提示噢，避免添加无佣金的商品。（支持淘宝网、天猫、京东）
+1. 可以一键获取商品信息，链接自动转换为商品推广链接（或者叫直达链接），包括店铺的推广链接。（目前支持淘宝网/天猫/京东/国美/苏宁/当当网/亚马逊/聚划算等）
+2. 支持[多麦CPS广告联盟](http://www.duomai.com/) (仅推广链接)，可以申请几百个商城(如:京东/国美/苏宁/当当网/唯品会/乐蜂网/美丽说/蘑菇街/一号店等)，申请快速，收款更快!
+3. 理论上兼容所有的淘宝客主题或者插件，也就是您不用换主题也能使用本插件。
+4. 如果商品没有加入推广计划会提示，避免添加无佣金的商品。（支持淘宝网、天猫、京东）
 
 插件地址：http://blogqun.com/wptao.html
 
@@ -36,6 +38,13 @@ QQ群: 77434617
 6. 淘点金推广单元ID
 
 == Changelog ==
+
+= 1.3 =
+ 
+2015/08/02
+ 
+支持多麦CPS广告联盟 http://www.duomai.com （您可以同时申请几百个商城CPS，免除您一个个申请的烦恼。）
+支持亚马逊联盟 https://associates.amazon.cn
 
 = 1.2.4 =
  
