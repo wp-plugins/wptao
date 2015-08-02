@@ -127,7 +127,7 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
 		  <td><label><input type="checkbox" id="wptao_open" name="wptao[open]" value="1" <?php if($wptao['open']) echo "checked "; ?>>添加到撰写新文章/编辑文章 页面</label></td>
 		</tr>
 		<tr>
-          <td valign="top"><label for="wptao_pid">阿里妈妈-淘点金推广单元ID</label></td>
+          <td valign="top"><label for="wptao_pid">淘宝联盟-淘点金推广单元ID</label></td>
 		  <td><input type="text" id="wptao_pid" name="wptao[pid]" size="30" value="<?php echo $wptao['pid'];?>" /> <a target="_blank" href="http://blogqun.com/wptao.html#pid">如何获取？</a></td>
 		</tr>
 		<tr>
