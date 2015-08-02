@@ -62,7 +62,7 @@ $('#'+wptao_preview).html(img);}<?php do_action('wptao_sidebox_js', $items);?>}}
     <th style="width:18%;"> <label for="wptao_link">商品链接*</label>
     </th>
     <td><input type="text" name="wptao_link" id="wptao_link" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="hidden" name="wptao_mall" id="wptao_mall" /><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p>
+	<p class="description"><input type="hidden" name="wptao_mall" id="wptao_mall" /><input type="button" id="wptao_get_item" title="获取信息" value="获取信息" /> 支持淘宝/天猫/京东/国美/苏宁/当当/亚马逊/多麦CPS等自动获取</p>
 	</td>
   </tr>
   <?php do_action('wptao_sidebox_tr', $items);?>

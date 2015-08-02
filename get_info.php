@@ -20,7 +20,7 @@ if (!current_user_can('edit_posts')) {
     <th style="width:18%;"> <label for="tbk_link">商品链接*</label>
     </th>
     <td><input type="text" name="tbk[link]" id="tbk_link" value="" size="30" tabindex="30" style="width: 90%;" />
-	<p class="description"><input type="hidden" name="tbk[mall]" id="tbk_mall" /><input type="button" id="get_item_info" title="获取信息" value="获取信息" /> 支持淘宝网、天猫、京东、苏宁、当当网等自动获取</p></td>
+	<p class="description"><input type="hidden" name="tbk[mall]" id="tbk_mall" /><input type="button" id="get_item_info" title="获取信息" value="获取信息" /> 支持淘宝/天猫/京东/国美/苏宁/当当/亚马逊/多麦等自动获取</p></td>
   </tr>
   <tr>
     <th style="width:18%;"> <label for="tbk_mm_link">商品推广链接</label>
