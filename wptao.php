@@ -164,7 +164,7 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
 		</tr>
 		<tr>
           <td valign="top"><strong>商品信息（必须）</strong></td>
-		  <td>输入框的节点id, 如果没有请留空: <br />比如：<code>&lt;input name="xxx" id="<span style="color:blue">abc</span>" /&gt;</code>，<code>abc</code>即为我们要的节点id</td>
+		  <td>输入框的节点id, 如果没有请留空: <br />比如：<code>&lt;input name="xxx" id="<span style="color:blue">abc</span>" /&gt;</code>，<code>abc</code>即为我们要的节点id [<a target="_blank" href="http://blogqun.com/wptao.html#inputid">看教程</a>]</td>
 		</tr>
 <?php
 $options = array('url' => array('商品链接', ''),
