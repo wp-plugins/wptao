@@ -4,7 +4,7 @@ Donate link: http://blogqun.com/wptao.html
 Tags: post,posts,admin,ajax,taobao,tmall,duomai,CPS,taobaoke,alimama,淘宝客,天猫,聚划算,多麦,多麦CPS广告联盟,京东商城,京东,国美,苏宁,亚马逊,当当网,广告联盟,联盟
 Requires at least: 3.0
 Tested up to: 4.3
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
 也支持多麦CPS广告联盟。
@@ -38,6 +38,12 @@ QQ群: 77434617
 6. 淘点金推广单元ID
 
 == Changelog ==
+
+= 1.3 =
+ 
+2015/08/08
+ 
+新增：除了支持输入框的节点id，还支持输入框的name值，书写方式为 post-body input[name=具体值]
 
 = 1.3 =
  

@@ -5,10 +5,10 @@ Author: 水脉烟香
 Author URI: http://www.smyx.net/
 Plugin URI: http://blogqun.com/wptao.html
 Description: 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。（目前支持多麦CPS广告联盟(仅推广链接)、淘宝网、天猫、京东、国美、苏宁、当当网、亚马逊、聚划算等）
-Version: 1.3
+Version: 1.3.1
 */
 
-define('WPTAO_V', '1.3');
+define('WPTAO_V', '1.3.1');
 
 add_action('admin_menu', 'wptao_add_page');
 function wptao_add_page() {
@@ -48,7 +48,7 @@ function wptao_sidebox_info() {
 <!-- By WordPress淘宝客插件 http://blogqun.com/wptao.html -->
 <script type="text/javascript">
 var wptao_js = <?php echo json_encode(wptao_js_var());?>;
-var wptao_data = <?php echo json_encode(array_filter($items));?>;
+var wptao_data = <?php echo json_encode_zh_cn(array_filter($items));?>;
 var wptao_preview = wptao_data.preview;
 jQuery(function($){$("#wptao_get_item").click(function(){var link=$("#wptao_link").val();if(!link){alert('商品链接不能留空！');return false;}
 jQuery.ajax({type:"GET",url:wptao_js.plugin_url+'/get_items.php?type=sign&link='+encodeURIComponent(link),success:function(data){if(data){var url=wptao_js.api+'/get_items_detail.php?callback=?';$.getJSON(url,{u:encodeURIComponent(link),from:encodeURIComponent(wptao_js.blog_url),sign:data,sign:data,c:'p',cps:!wptao_data.item_click&&!wptao_data.shop_click?0:1,desc:!wptao_data.desc?0:1,v:wptao_js.v},function(data){if(data.error){alert(data.error);}else if(data.url){$("#wptao_link").val(data.url);$("#wptao_mall").val(data.mall);if(data.tips){$('#wptao_tips').html(data.tips);}
@@ -164,7 +164,7 @@ function add_value(i,v){document.getElementById(i).value=v.innerHTML;}
 		</tr>
 		<tr>
           <td valign="top"><strong>商品信息（必须）</strong></td>
-		  <td>输入框的节点id, 如果没有请留空: <br />比如：<code>&lt;input name="xxx" id="<span style="color:blue">abc</span>" /&gt;</code>，<code>abc</code>即为我们要的节点id [<a target="_blank" href="http://blogqun.com/wptao.html#inputid">看教程</a>]</td>
+		  <td>输入框的节点id, 如果没有请留空: <br />比如：<code>&lt;input name="<span style="color:green">abc</span>" id="<span style="color:blue">xyz</span>" /&gt;</code>，节点id就写<code>xyz</code>，或者使用输入框name值，填写为<code>post-body input[name=abc]</code>，如果是textarea，就写<code>post-body textarea[name=abc]</code> [<a target="_blank" href="http://blogqun.com/wptao.html#inputid">看教程</a>]</td>
 		</tr>
 <?php
 $options = array('url' => array('商品链接', ''),
@@ -195,6 +195,12 @@ foreach ($options as $key => $value) {
 </div>
 <?php
 } 
+// json_encode能显示中文
+if (!function_exists('json_encode_zh_cn')) {
+	function json_encode_zh_cn($var) {
+		return preg_replace("/\\\\u([a-f0-9]{4})/e", "iconv('UCS-4LE','UTF-8',pack('V', hexdec('U$1')))", json_encode($var));
+	}
+}
 // js var
 function wptao_js_var() {
 	$wptao = get_option('wptao');
