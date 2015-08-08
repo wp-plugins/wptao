@@ -3,8 +3,8 @@ Contributors: smyx
 Donate link: http://blogqun.com/wptao.html
 Tags: post,posts,admin,ajax,taobao,tmall,duomai,CPS,taobaoke,alimama,淘宝客,天猫,聚划算,多麦,多麦CPS广告联盟,京东商城,京东,国美,苏宁,亚马逊,当当网,广告联盟,联盟
 Requires at least: 3.0
-Tested up to: 1.3
-Stable tag: 4.2.2
+Tested up to: 4.3
+Stable tag: 1.3
 
 匹配不同的淘宝客主题，实现自动填充商品信息及推广链接(CPS)。
 也支持多麦CPS广告联盟。
