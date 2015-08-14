@@ -1,8 +1,10 @@
 <?php
 include "../../../wp-config.php";
-if (!current_user_can('edit_posts')) {
-	exit;
-}
+if (!is_user_logged_in()) {
+	wp_die('<a href=' . wp_login_url('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) . '>请点击这里登录后操作。</a>');
+} elseif (!current_user_can('edit_posts')) {
+	wp_die(__('You do not have sufficient permissions to access this page.'));
+} 
 ?>
 <!DOCTYPE HTML>
 <html lang="zh-CN">
